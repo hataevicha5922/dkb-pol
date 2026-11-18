@@ -1,0 +1,365 @@
+---
+const phones = [
+  { number: '+375 29 630-00-80', operator: 'Велком', tel: '+375296300080' },
+  { number: '+375 33 354-00-80', operator: 'МТС', tel: '+375333540080' },
+];
+
+// URL бэкенда — меняется в зависимости от окружения
+const API_URL = import.meta.env.DEV 
+  ? 'http://localhost:3000/api' 
+  : 'https://api.dkb-pol.by/api';
+---
+
+<section class="contact" id="contact">
+  <div class="container contact__inner">
+    <div class="contact__info">
+      <h2 class="section-title" style="text-align:left">Свяжитесь с нами</h2>
+      <p class="contact__subtitle">
+        Приём заявок круглосуточно. Рассчитаем стоимость бесплатно.
+      </p>
+
+      <div class="contact__phones">
+        {phones.map(p => (
+          <a href={`tel:${p.tel}`} class="contact__phone">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--color-primary)">
+              <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.58 1 1 0 01-.24 1.01l-2.2 2.2z"/>
+            </svg>
+            <div>
+              <strong>{p.number}</strong>
+              <small>{p.operator}</small>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="contact__meta">
+        <p>📍 Гомель и Гомельская область</p>
+        <p>✉️ vladimir_ivanov78@mail.ru</p>
+        <p>📷 <a href="https://www.instagram.com/dkbpol/" target="_blank" rel="noopener">Instagram @dkbpol</a></p>
+      </div>
+    </div>
+
+    <form class="contact__form" id="contactForm" novalidate>
+      <h3 class="contact__form-title">Оставить заявку</h3>
+      
+      <label class="contact__field">
+        <span>Имя *</span>
+        <input type="text" name="name" required placeholder="Ваше имя" />
+        <span class="contact__error" data-error="name"></span>
+      </label>
+      
+      <label class="contact__field">
+        <span>Телефон *</span>
+        <input type="tel" name="phone" required placeholder="+375 (__) ___-__-__" />
+        <span class="contact__error" data-error="phone"></span>
+      </label>
+      
+      <label class="contact__field">
+        <span>Площадь (м²)</span>
+        <input type="number" name="area" placeholder="Например: 80" min="1" />
+      </label>
+      
+      <label class="contact__field">
+        <span>Комментарий</span>
+        <textarea name="message" rows="3" placeholder="Опишите задачу..."></textarea>
+      </label>
+      
+      <button type="submit" class="btn btn-primary contact__submit" id="submitBtn">
+        <span class="btn__text">Отправить заявку</span>
+        <span class="btn__loader" hidden>Отправка...</span>
+      </button>
+      
+      <div class="contact__status" id="formStatus" hidden></div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const API_URL = import.meta.env.DEV 
+    ? 'http://localhost:3000/api' 
+    : '/api';
+
+ // Объявление переменных с типами
+const form = document.querySelector<HTMLFormElement>('.contact__form')!;
+const submitBtn = document.querySelector<HTMLButtonElement>('.contact__submit')!;
+const btnText   = document.querySelector<HTMLElement>('.btn__text')!;
+const btnLoader = document.querySelector<HTMLElement>('.btn__loader')!;
+const statusEl = document.querySelector<HTMLElement>('.contact__status')!;
+// const API_URL = import.meta.env.VITE_API_URL || '';
+
+  // Маска телефона
+const phoneInput = form.querySelector<HTMLInputElement>('input[name="phone"]')!;
+
+phoneInput.addEventListener('input', (e) => {
+  const input = e.currentTarget as HTMLInputElement;
+  let digits = input.value.replace(/\D/g, '');
+  if (digits.startsWith('8')) digits = '375' + digits.slice(1);
+  if (!digits.startsWith('375')) digits = '375' + digits;
+  digits = digits.slice(0, 12);
+
+  const [code, p1, p2, p3] = [
+    digits.slice(3, 5), digits.slice(5, 8), digits.slice(8, 10), digits.slice(10, 12),
+  ];
+
+  let out = '+375';
+  if (code) out += ` (${code}${code.length === 2 ? ')' : ''}`;
+  if (p1) out += ` ${p1}`;
+  if (p2) out += `-${p2}`;
+  if (p3) out += `-${p3}`;
+  input.value = out;
+});
+
+  // Очистка ошибок при вводе
+  form!.querySelectorAll('input, textarea').forEach(input => {
+  input.addEventListener('input', () => {
+    const errorEl = form!.querySelector(`[data-error="${input.getAttribute('name')}"]`);
+    if (errorEl) errorEl.textContent = '';
+    input.classList.remove('contact__field--error');
+  });
+});;
+
+  form.addEventListener('submit', async (e: SubmitEvent) => {
+  e.preventDefault();
+  statusEl!.className = 'contact__status';
+
+  // Собираем данные
+  const formData = new FormData(form);
+  const data = {
+    name: (formData.get('name') as string)?.trim(),
+    phone: (formData.get('phone') as string)?.trim(),
+    area: formData.get('area') ? parseInt(formData.get('area') as string, 10) : undefined,
+    message: (formData.get('message') as string)?.trim() || undefined,
+  };
+
+
+    // Клиентская валидация
+  const errors = validateClient(data);
+  if (Object.keys(errors).length > 0) {
+    showErrors(errors);
+    return;
+  }
+
+   // Отправка
+  setLoading(true);
+
+  try {
+    const response = await fetch(`${API_URL}/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Ошибка сервера');
+    }
+
+    // Успех
+    showStatus('success', result.message || 'Заявка отправлена!');
+    form.reset();
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Неизвестная ошибка';
+    showStatus('error', message || 'Не удалось отправить заявку. Позвоните нам.');
+  } finally {
+    setLoading(false);
+  }
+});
+
+function validateClient(data: { name?: string; phone?: string }) {
+  const errors: Record<string, string> = {};
+  if (!data.name || data.name.length < 2) errors.name = 'Минимум 2 символа';
+  if (!data.phone || data.phone.replace(/\D/g, '').length < 10) {
+    errors.phone = 'Введите корректный телефон';
+  }
+  return errors;
+}
+
+function showErrors(errors: Record<string, string>) {
+  Object.entries(errors).forEach(([field, message]) => {
+    const errorEl = form.querySelector(`[data-error="${field}"]`);
+    const input = form.querySelector(`[name="${field}"]`);
+    if (errorEl) errorEl.textContent = message;
+    if (input) input.classList.add('contact__field--error');
+  });
+}
+
+function clearErrors() {
+  form.querySelectorAll('.contact__error').forEach(el => el.textContent = '');
+  form.querySelectorAll('.contact__field--error').forEach(el => el.classList.remove('contact__field--error'));
+}
+
+function showStatus(type: string, message: string) {
+  statusEl.textContent = message;
+  statusEl.className = `contact__status contact__status--${type}`;
+  statusEl.hidden = false;
+  statusEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function setLoading(loading: boolean) {
+  submitBtn.disabled = loading;
+  btnText.hidden = loading;
+  btnLoader.hidden = !loading;
+}
+</script>
+
+<style>
+ /* ===== Layout ===== */
+ .contact {
+   padding: var(--section-padding);
+ }
+.contact__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.contact__form {
+  padding: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact__form-title {
+  margin: 0 0 8px;
+}
+
+/* ===== Телефоны: иконка в одну строку с номером ===== */
+.contact__phones {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.contact__phone {
+  display: flex;
+  align-items: center;   /* иконка по центру строки с номером */
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.contact__phone svg {
+  flex-shrink: 0;        /* иконка не сожмётся */
+  display: block;        /* убирает baseline-зазор под svg */
+}
+
+/* Каждое поле — колонкой: label сверху, input снизу */
+.contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact__field > span:first-child {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.contact__field input,
+.contact__field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  color: #1f2937;
+  background: #fff;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.contact__field input:focus,
+.contact__field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+.contact__field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ===== Ошибки ===== */
+.contact__field--error input,
+.contact__field--error textarea {
+  border-color: var(--color-accent);
+}
+
+.contact__error {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  min-height: 1em;
+}
+
+/* ===== Статус ===== */
+.contact__status {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.contact__status--success {
+  background: #E8F5E9;
+  color: #1B5E20;
+  border: 1px solid #A5D6A7;
+}
+
+.contact__status--error {
+  background: #FFEBEE;
+  color: #B71C1C;
+  border: 1px solid #EF9A9A;
+}
+
+/* ===== Кнопка / лоадер ===== */
+/* КЛЮЧЕВОЕ: показываем лоадер ТОЛЬКО когда hidden убран */
+.btn__loader:not([hidden]) {
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.btn__loader::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.contact__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact__meta p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Адаптив ===== */
+@media (max-width: 900px) {
+  .contact__inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+</style>

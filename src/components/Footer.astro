@@ -1,0 +1,71 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <strong>ДКБ-Пол</strong>
+        <span>Доступно · Качественно · Быстро</span>
+      </div>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="#services">Услуги</a>
+        <a href="#why-us">Почему мы</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+      <div class="footer__copy">
+        <p>© {year} ДКБ-Пол. Все права защищены.</p>
+        <p>УНП 490878851  ИП Лабода</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-primary-dark);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 40px 0;
+  }
+  .footer__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .footer__brand strong {
+    font-size: 1.2rem;
+    display: block;
+  }
+  .footer__brand span {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+  .footer__nav {
+    display: flex;
+    gap: 20px;
+  }
+  .footer__nav a {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .footer__nav a:hover {
+    opacity: 1;
+  }
+  .footer__copy {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    text-align: right;
+  }
+  @media (max-width: 768px) {
+    .footer__inner {
+      flex-direction: column;
+      text-align: center;
+    }
+    .footer__copy { text-align: center; }
+  }
+</style>

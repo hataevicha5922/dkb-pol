@@ -1,0 +1,92 @@
+---
+const features = [
+  {
+    icon: '🤝',
+    title: 'Честный сервис',
+    text: 'Вы можете присутствовать при выполнении работ и контролировать каждый этап',
+  },
+  {
+    icon: '⚡',
+    title: 'Сроки от 1-го дня',
+    text: 'Быстрое выполнение — от одного дня в зависимости от объёма',
+  },
+  {
+    icon: '💰',
+    title: 'Цены от 16 BYN/м²',
+    text: 'Прозрачное ценообразование без скрытых накруток',
+  },
+  {
+    icon: '🛡️',
+    title: 'Гарантия качества',
+    text: 'Официальная гарантия на все выполненные работы',
+  },
+  {
+    icon: '🕐',
+    title: 'Круглосуточный приём',
+    text: 'Принимаем заявки 24/7 — звоните в любое время',
+  },
+  {
+    icon: '📐',
+    title: 'Работа по ГОСТ',
+    text: 'Строго соблюдаем технологии и стандарты',
+  },
+];
+---
+
+<section class="why-us" id="why-us">
+  <div class="container">
+    <h2 class="section-title">Почему выбирают нас?</h2>
+    <p class="section-subtitle">
+      Мы делаем качественно, быстро и по честной цене
+    </p>
+
+    <div class="why-us__grid">
+      {features.map(f => (
+        <article class="why-us__card">
+          <span class="why-us__icon" aria-hidden="true">{f.icon}</span>
+          <h3 class="why-us__card-title">{f.title}</h3>
+          <p class="why-us__card-text">{f.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-us {
+    padding: var(--section-padding);
+    background: var(--color-bg-alt);
+  }
+  .why-us__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .why-us__card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .why-us__card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .why-us__icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .why-us__card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 8px;
+  }
+  .why-us__card-text {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+</style>

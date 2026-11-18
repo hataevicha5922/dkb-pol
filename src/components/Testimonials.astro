@@ -1,0 +1,82 @@
+---
+const reviews = [
+  {
+    text: 'Заказал стяжку пола без замера, так как сам строитель — промерял, выявил слой 7 см. Обговорили по телефону стоимость, на следующий день приехала бригада, залили стяжку без накруток и изменения цены! Доволен качеством, рекомендую!',
+    author: 'Андрей',
+    rating: 5,
+  },
+  {
+    text: 'Отличные мастера! На даче заливали стяжку 200 кв.м., залили за один день, без предоплаты. Расчёт по факту выполненной работы.',
+    author: 'Сергей',
+    rating: 5,
+  },
+  {
+    text: 'Мы буквально недавно делали. 110 метров залили за полдня. Вечером можно было ходить. Всё ровно, аккуратно. Стяжка вышла 7 см. Ребята с утра приехали, в обед всё было готово.',
+    author: 'Ольга',
+    rating: 5,
+  },
+  {
+    text: 'Чудесно сделали! Заказывали у этих ребят стяжку — 3 дня на всё про всё и готово! Когда посчитали — ненамного дороже вышло, чем если бы сами делали.',
+    author: 'Марина',
+    rating: 5,
+  },
+];
+---
+
+<section class="reviews" id="reviews">
+  <div class="container">
+    <h2 class="section-title">Что говорят клиенты</h2>
+    <p class="section-subtitle">96% положительных отзывов</p>
+
+    <div class="reviews__grid">
+      {reviews.map(r => (
+        <blockquote class="reviews__card">
+          <div class="reviews__stars" aria-label={`Оценка ${r.rating} из 5`}>
+            {Array.from({ length: r.rating }).map(() => (
+              <span aria-hidden="true">★</span>
+            ))}
+          </div>
+          <p class="reviews__text">«{r.text}»</p>
+          <footer class="reviews__author">— {r.author}</footer>
+        </blockquote>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    padding: var(--section-padding);
+    background: var(--color-bg-alt);
+  }
+  .reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .reviews__card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--color-primary);
+  }
+  .reviews__stars {
+    color: #FFB300;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+  .reviews__text {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .reviews__author {
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    font-size: 0.9rem;
+  }
+</style>

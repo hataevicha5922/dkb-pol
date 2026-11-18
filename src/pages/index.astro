@@ -1,16 +1,29 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import WhyUs from '../components/WhyUs.astro';
+import Services from '../components/Services.astro';
+import Equipment from '../components/Equipment.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="ДКБ-Пол — Полусухая стяжка пола в Гомеле | Доступно, Качественно, Быстро"
+  description="Профессиональная полусухая стяжка пола в Гомеле и области. Цены от 16 BYN/м². Сроки от 1 дня. Гарантия качества. ☎ +375 29 630-00-80"
+>
+  <SchemaOrg slot="head" />
+  <Header />
+  <main>
+    <Hero />
+    <Services />
+    <WhyUs />
+    <Equipment />
+    <Testimonials />
+    <ContactForm />
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,259 @@
+<section class="hero">
+  <div class="hero__content">
+    <h1 class="hero__title">Полусухая стяжка пола в Гомеле и области</h1>
+    <!-- <p class="hero__subtitle">
+    Честный сервис — вы можете присутствовать при выполнении работ. 
+    Гарантия качества. Приём заявок круглосуточно.
+    </p>
+
+    <div class="hero__cta-block">
+    <div class="hero__stats-cta">
+        <div class="stat-card">
+        <span class="stat-card__value">16 BYN/м²</span>
+        <span class="stat-card__label">Цены от</span>
+        </div>
+        <div class="stat-card">
+        <span class="stat-card__value">1 день</span>
+        <span class="stat-card__label">Сроки от</span>
+        </div>
+        <div class="stat-card">
+        <span class="stat-card__value">96%</span>
+        <span class="stat-card__label">Положительных отзывов</span>
+        </div>
+    </div>
+    
+    <div class="hero__buttons-cta">
+        <button class="btn btn--primary">Рассчитать стоимость</button>
+        <button class="btn btn--outline">📞 Позвонить</button>
+    </div>
+    </div> -->
+
+    <p class="hero__subtitle">
+  Честный сервис — вы можете присутствовать при выполнении работ. 
+  Гарантия качества. Приём заявок круглосуточно.
+</p>
+
+<div class="hero__stats-inline">
+  <div class="stat-inline">
+    <span class="stat-inline__value">16 BYN/м²</span>
+    <span class="stat-inline__label">цены от</span>
+  </div>
+  <div class="stat-inline">
+    <span class="stat-inline__value">1 день</span>
+    <span class="stat-inline__label">сроки от</span>
+  </div>
+  <div class="stat-inline">
+    <span class="stat-inline__value">96%</span>
+    <span class="stat-inline__label">положительных отзывов</span>
+  </div>
+</div>
+
+<div class="hero__buttons">
+  <button class="btn btn--primary">Рассчитать стоимость</button>
+  <button class="btn btn--outline">📞 Позвонить</button>
+</div>
+
+
+  </div>
+</section>
+
+<style>
+    .hero {
+  background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+  color: #fff;
+  padding: 80px 24px;
+}
+
+.hero__content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero__title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  line-height: 1.15;
+  max-width: 700px;
+}
+
+.hero__subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  max-width: 700px;
+  line-height: 1.7;
+}
+
+.hero__stats-inline {
+  display: flex;
+  gap: 32px;
+  margin: 32px 0;
+  flex-wrap: wrap;
+}
+
+.stat-inline {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.stat-inline__value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.stat-inline__label {
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+/* .hero__subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  max-width: 600px;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+  .hero__cta-block {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 40px;
+  margin-top: 40px;
+  max-width: 800px;
+}
+
+.hero__stats-cta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.hero__buttons-cta {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+} */
+
+@media (max-width: 768px) {
+    .hero {
+    padding: 48px 24px;
+  }
+  
+  .hero__title {
+    font-size: 2rem;
+  }
+  
+  .hero__subtitle {
+    font-size: 1rem;
+    margin-bottom: 32px;
+  }
+
+   .hero__stats-inline {
+    gap: 20px;
+  }
+  
+  .stat-inline__value {
+    font-size: 1.5rem;
+  }
+
+  /* .hero__cta-block {
+    padding: 24px;
+  }
+  
+  .hero__stats-cta {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+  }
+  
+  .hero__buttons-cta {
+    flex-direction: column;
+  } */
+}
+
+
+ .hero {
+    background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 50%, #43A047 100%);
+    color: #fff;
+    padding: 100px 0 80px;
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero__title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .hero__title span {
+    color: #A5D6A7;
+  }
+  .hero__subtitle {
+    font-size: 1.15rem;
+    opacity: 0.9;
+    margin-bottom: 32px;
+    max-width: 520px;
+  }
+  .hero__actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .hero .btn-primary {
+    background: #fff;
+    color: var(--color-primary-dark);
+  }
+  .hero .btn-primary:hover {
+    background: #E8F5E9;
+  }
+  .hero .btn-outline {
+    border-color: rgba(255,255,255,0.5);
+    color: #fff;
+  }
+  .hero .btn-outline:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+  .hero__stats {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .hero__stat {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius);
+    padding: 20px 28px;
+    text-align: center;
+    min-width: 180px;
+  }
+  .hero__stat-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    display: block;
+  }
+  .hero__stat-value small {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-left: 4px;
+  }
+  .hero__stat-label {
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+  @media (max-width: 768px) {
+    .hero { padding: 60px 0 50px; }
+    .hero__inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero__stats { flex-direction: row; }
+  }
+</style>
