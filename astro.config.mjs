@@ -1,9 +1,8 @@
 import { defineConfig } from "astro/config";
-import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://dkb-pol.by",
-  integrations: [sitemap()],
+  site: "https://hataevicha5922.github.io",
+  base: "/dkb-pol/",
   output: "static",
   build: {
     inlineStylesheets: "auto",
