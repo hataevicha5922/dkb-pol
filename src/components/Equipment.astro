@@ -103,8 +103,8 @@ const equipment = [
  .equipment__image img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* ← было cover, теперь contain */
-  padding: 16px;       /* ← отступы, чтобы картинка не прилипала к краям */
+ object-fit: cover;          /* ← заполняет весь блок */
+  object-position: center;    /* ← техника по центру, обрезка симметрична */
   transition: transform 0.4s ease;
 }
 
