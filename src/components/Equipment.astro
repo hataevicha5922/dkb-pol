@@ -3,17 +3,17 @@ const equipment = [
   {
     title: 'Растворонасосы Putzmeister',
     text: 'Немецкое оборудование для механизированной подачи смеси. Обеспечивает равномерность и скорость укладки.',
-    icon: '🔧',
+    image: 'img/putzmeister.jpg',
   },
   {
     title: 'Фиброволокно и пластификаторы',
     text: 'Используем только сертифицированные добавки для повышения прочности и эластичности стяжки.',
-    icon: '🧪',
+    image: 'img/fibro.jpg',
   },
   {
     title: 'Профессиональный инструмент',
-    text: 'Лазерные уровни, затирочные машины, виброрейки — всё для идеальной поверхности.',
-    icon: '📏',
+     text: 'Лазерные уровни, затирочные машины, виброрейки — всё для идеальной поверхности.',
+    image: 'img/equipment.jpg',
   },
 ];
 ---
@@ -28,9 +28,13 @@ const equipment = [
     <div class="equipment__grid">
       {equipment.map(e => (
         <article class="equipment__card">
-          <span class="equipment__icon">{e.icon}</span>
-          <h3 class="equipment__title">{e.title}</h3>
-          <p class="equipment__text">{e.text}</p>
+          <div class="equipment__image">
+            <img src={e.image} alt={e.title} loading="lazy" />
+          </div>
+          <div class="equipment__content">
+            <h3 class="equipment__title">{e.title}</h3>
+            <p class="equipment__text">{e.text}</p>
+          </div>
         </article>
       ))}
     </div>
@@ -39,34 +43,112 @@ const equipment = [
 
 <style>
   .equipment {
-    padding: var(--section-padding);
+    padding: var(--section-padding, 80px 0);
+     background: var(--color-bg-alt);
   }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    text-align: center;
+    margin: 0 0 16px;
+  }
+
+  .section-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  margin: 0 auto 48px; /* ← добавлено auto для горизонтального центрирования */
+  max-width: 600px;    /* ← ограничиваем ширину */
+  line-height: 1.6;
+}
   .equipment__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
   }
+
   .equipment__card {
-    background: linear-gradient(135deg, #F5F5F5, #fff);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: 32px 28px;
-    text-align: center;
+    background: #fff;
+    border-radius: var(--radius, 12px);
+    overflow: hidden;
+    box-shadow: var(--shadow, 0 4px 16px rgba(0, 0, 0, 0.08));
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
   }
-  .equipment__icon {
-    font-size: 3rem;
-    display: block;
-    margin-bottom: 16px;
+
+  .equipment__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
+
+  .equipment__image {
+    height: 200px;
+    overflow: hidden;
+    /* background: #f5f5f5; */
+     background: #fff; /* ← белый фон вместо серого */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+ .equipment__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ← было cover, теперь contain */
+  padding: 16px;       /* ← отступы, чтобы картинка не прилипала к краям */
+  transition: transform 0.4s ease;
+}
+
+.equipment__card:hover .equipment__image img {
+  transform: scale(1.05);
+}
+
+  .equipment__content {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
   .equipment__title {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: var(--color-primary-dark);
-    margin-bottom: 10px;
+    color: #1a1a1a;
+    margin: 0 0 12px;
   }
+
   .equipment__text {
-    font-size: 0.92rem;
-    color: var(--color-text-muted);
-    line-height: 1.5;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .equipment {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .equipment__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .equipment__image {
+      height: 180px;
+    }
   }
 </style>

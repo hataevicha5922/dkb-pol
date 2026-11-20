@@ -1,7 +1,6 @@
 ---
 const phones = [
-  { number: '+375 29 630-00-80', operator: 'Велком', tel: '+375296300080' },
-  { number: '+375 33 354-00-80', operator: 'МТС', tel: '+375333540080' },
+  { number: '+375 29 630-00-80', operator: 'A1', tel: '+375296300080' },
 ];
 
 // URL бэкенда — меняется в зависимости от окружения
@@ -15,7 +14,7 @@ const API_URL = import.meta.env.DEV
     <div class="contact__info">
       <h2 class="section-title" style="text-align:left">Свяжитесь с нами</h2>
       <p class="contact__subtitle">
-        Приём заявок круглосуточно. Рассчитаем стоимость бесплатно.
+       Рассчитаем стоимость бесплатно.
       </p>
 
       <div class="contact__phones">
@@ -207,6 +206,7 @@ function setLoading(loading: boolean) {
  /* ===== Layout ===== */
  .contact {
    padding: var(--section-padding);
+  background: var(--color-bg-alt);
  }
 .contact__inner {
   display: grid;
