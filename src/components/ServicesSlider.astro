@@ -1,0 +1,458 @@
+<section class="services" id="services">
+  <div class="container">
+    <h2 class="services__title">Наши услуги</h2>
+    <p class="services__subtitle">Выполняем работы по стяжке пола в Гомеле и Гомельской области</p>
+  </div>
+
+  <div class="services__slider-wrapper">
+    <div class="swiper services-swiper">
+      <div class="swiper-wrapper">
+        <!-- Слайд 1: Полусухая стяжка -->
+        <div class="swiper-slide">
+          <div class="service-card">
+            <div class="service-card__image">
+              <img src="img/two.jpg" alt="Полусухая стяжка пола" />
+            </div>
+            <div class="service-card__content">
+              <h3 class="service-card__title">Полусухая стяжка пола</h3>
+              <p class="service-card__description">
+                Смесь бетона с фиброволокнами и пластификаторами. Идеально ровная поверхность за 1 день.
+              </p>
+              <ul class="service-card__features">
+                <li>Толщина от 60 мм</li>
+                <li>До 200 м² за смену</li>
+                <li>Механизированная укладка</li>
+              </ul>
+              <div class="service-card__footer">
+                <div class="service-card__price">
+                  <span class="service-card__price-label">от</span>
+                  <span class="service-card__price-value">16 BYN/м²</span>
+                </div>
+                <a href="#contact" class="service-card__btn">Заказать</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Слайд 2: Стяжка с тёплым полом -->
+        <div class="swiper-slide">
+          <div class="service-card">
+            <div class="service-card__image">
+              <img src="img/one.jpg" alt="Стяжка с тёплым полом" />
+            </div>
+            <div class="service-card__content">
+              <h3 class="service-card__title">Стяжка с тёплым полом</h3>
+              <p class="service-card__description">
+                Профессиональная укладка стяжки поверх системы тёплого пола с соблюдением всех технологий.
+              </p>
+              <ul class="service-card__features">
+                <li>Работа с любой системой</li>
+                <li>Контроль толщины</li>
+                <li>Гарантия на стяжку</li>
+              </ul>
+              <div class="service-card__footer">
+                <div class="service-card__price">
+                  <span class="service-card__price-label">от</span>
+                  <span class="service-card__price-value">20 BYN/м²</span>
+                </div>
+                <a href="#contact" class="service-card__btn">Заказать</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Навигация -->
+       <div class="swiper-pagination"></div>
+ <button class="slider-arrow slider-arrow--prev" aria-label="Предыдущий слайд">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="slider-arrow slider-arrow--next" aria-label="Следующий слайд">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import Swiper from 'swiper';
+  import { Navigation, Pagination, EffectFade } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+  import 'swiper/css/pagination';
+  import 'swiper/css/effect-fade';
+
+ const swiper = new Swiper('.services-swiper', {
+  modules: [Navigation, Pagination, EffectFade],
+  slidesPerView: 1,
+  spaceBetween: 24,
+  loop: true,
+  effect: 'fade',
+  fadeEffect: { crossFade: true },
+  speed: 600,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.slider-arrow--next', // ← кастомная кнопка
+    prevEl: '.slider-arrow--prev', // ← кастомная кнопка
+  },
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+  },
+});
+</script>
+
+<style>
+  .services {
+    padding: 80px 0;
+    background: var(--color-bg-alt);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .services__title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 0 16px;
+  }
+
+  .services__subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0 0 48px;
+  }
+
+  /* Ограничиваем ширину слайдера */
+  .services__slider-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+     overflow: visible;
+  }
+
+  .services-swiper {
+    width: 100%;
+    height: 640px;
+     overflow: visible !important;
+  }
+
+  .swiper-slide {
+    height: 100%;
+  }
+
+  .service-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card__image {
+    height: 280px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .service-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .service-card__content {
+    padding: 28px 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 12px;
+  }
+
+  .service-card__description {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 20px;
+  }
+
+  .service-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    flex: 1;
+  }
+
+  .service-card__features li {
+    padding: 6px 0 6px 28px;
+    position: relative;
+    color: #444;
+    font-size: 0.9rem;
+  }
+
+  .service-card__features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #d35400;
+    font-weight: 700;
+  }
+
+  .service-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    margin-top: auto;
+  }
+
+  .service-card__price-label {
+    font-size: 0.8rem;
+    color: #999;
+    text-transform: uppercase;
+  }
+
+  .service-card__price-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .service-card__btn {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .service-card__btn:hover {
+    background: #d35400;
+  }
+
+  /* Стрелки навигации */
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 44px !important;
+    height: 44px !important;
+    background: #fff !important;
+    border-radius: 50% !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+    top: 140px !important;
+  }
+
+  .swiper-button-prev {
+    left: -22px !important;
+  }
+
+  .swiper-button-next {
+    right: -22px !important;
+  }
+
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    background: #d35400 !important;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 18px !important;
+    color: #1a1a1a !important;
+  }
+
+  .swiper-button-prev:hover::after,
+  .swiper-button-next:hover::after {
+    color: #fff !important;
+  }
+
+  /* Точки навигации */
+  .swiper-pagination {
+    bottom: -32px !important;
+  }
+
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: #ddd;
+    opacity: 1;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: #d35400;
+    width: 28px;
+    border-radius: 5px;
+  }
+
+  /* Скрываем стандартные стрелки Swiper */
+.services-swiper .swiper-button-prev,
+.services-swiper .swiper-button-next {
+  display: none !important;
+}
+
+/* Кастомные стрелки */
+.slider-arrow {
+  position: absolute;
+  top: 140px; /* Центр картинки */
+  width: 48px;
+  height: 48px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 10;
+  color: #1a1a1a;
+}
+
+/* .slider-arrow--prev {
+  left: -24px;
+} */
+
+/* .slider-arrow--next {
+  right: -24px;
+} */
+
+.slider-arrow:hover {
+  background: #d35400;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(211, 84, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.slider-arrow svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Кастомные стрелки — на стыке картинки и текста */
+.slider-arrow {
+  position: absolute;
+  top: 280px; /* ← высота картинки, стрелка ровно на границе */
+  transform: translateY(-50%); /* ← центрируем по вертикали относительно границы */
+  width: 44px;
+  height: 44px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 10;
+  color: #1a1a1a;
+}
+
+.slider-arrow--prev {
+  left: -22px;
+}
+
+.slider-arrow--next {
+  right: -22px;
+}
+
+.slider-arrow:hover {
+  background: #d35400;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(211, 84, 0, 0.3);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.slider-arrow svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Мобильная версия — скрываем стрелки, оставляем свайп */
+@media (max-width: 768px) {
+  .slider-arrow {
+    display: none; /* ← прячем стрелки */
+  }
+
+  .services__slider-wrapper {
+    padding: 0;
+  }
+
+  .services-swiper {
+    height: 620px;
+  }
+
+  .service-card__image {
+    height: 240px;
+  }
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+  .slider-arrow {
+    width: 40px;
+    height: 40px;
+    top: 120px;
+  }
+
+  .slider-arrow--prev {
+    left: 10px;
+  }
+
+  .slider-arrow--next {
+    right: 10px;
+  }
+
+  .slider-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+  @media (max-width: 768px) {
+    .services__slider-wrapper {
+      padding: 0 20px;
+    }
+
+    .services-swiper {
+      height: 680px;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      width: 38px !important;
+      height: 38px !important;
+    }
+
+    .swiper-button-prev {
+      left: 0 !important;
+    }
+
+    .swiper-button-next {
+      right: 0 !important;
+    }
+  }
+</style>
